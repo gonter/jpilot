@@ -36,8 +36,8 @@
 #include "otherconv.h"
 
 /********************************* Constants **********************************/
-#define NUM_SHORTDATES 7
-#define NUM_LONGDATES 6
+#define NUM_SHORTDATES 8
+#define NUM_LONGDATES 7
 #define NUM_TIMES 10
 #define NUM_TIMES_NO_AMPM 6
 #define NUM_RATES 11
@@ -53,7 +53,7 @@ static prefType glob_prefs[NUM_PREFS] = {
    {"time", CHARTYPE, INTTYPE, 0, NULL, 0},
    {"sdate", CHARTYPE, INTTYPE, 0, NULL, 0},
    {"ldate", CHARTYPE, INTTYPE, 0, NULL, 0},
-   {"xxx_internal1_xxx", CHARTYPE, INTTYPE, 0, NULL, 0},
+   {"fdow", CHARTYPE, INTTYPE, 0, NULL, 0},
    {"show_deleted", INTTYPE, INTTYPE, 0, NULL, 0},
    {"show_modified", INTTYPE, INTTYPE, 0, NULL, 0},
    {"todo_hide_completed", INTTYPE, INTTYPE, 0, NULL, 0},
@@ -411,7 +411,8 @@ int get_pref_possibility(int which, int n, char *pref_str)
       "%d-%m-%y",
       "%y/%m/%d",
       "%y.%m.%d",
-      "%y-%m-%d"
+      "%y-%m-%d",
+      "%Y-%m-%d"
    };
 
    const char *long_date_formats[] = {
@@ -420,7 +421,8 @@ int get_pref_possibility(int which, int n, char *pref_str)
       N_("%d. %B %Y"),
       N_("%d %B, %Y"),
       N_("%Y. %B. %d"),
-      N_("%Y %B %d")
+      N_("%Y %B %d"),
+      N_("%Y-%m-%d")
    };
 
    const char *time_formats[] = {
@@ -686,6 +688,7 @@ int set_pref(int which, long n, const char *string, int save)
        (which==PREF_SHORTDATE) ||
        (which==PREF_LONGDATE) ||
        (which==PREF_TIME) ||
+       (which==PREF_FDOW) ||
        (which==PREF_PAPER_SIZE)) {
       set_pref_possibility(which, n, FALSE);
       str=glob_prefs[which].svalue;

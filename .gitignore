@@ -45,3 +45,13 @@ SlackBuild
 stamp-h1
 po/*.po
 m4/*
+@*
+tags
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+compile
+core
+typescript
+ts.*
