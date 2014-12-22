@@ -1242,6 +1242,7 @@ static void cb_gen_password(GtkWidget *widget, gpointer data)
    alpha_size,
    numer_size;
    char alpha[] = "abcdfghjklmnpqrstvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+   /* hmm... why are e, i, o, u missing? There are a and the uppercase letters */
    char numer[] = "1234567890";
    char passwd[MAX_KR_PASS + 1];
 
