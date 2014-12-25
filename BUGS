@@ -42,7 +42,7 @@ These are some of the known bugs:
 
 * Palm OS bugs that have been found while creating J-Pilot
 
- - If you try to sync with a pilotrate of 0 then the palm pilot with get a
+ - If you try to sync with a pilotrate of 0 then the palm pilot will get a
    fatal exception and reboot.  (tested on 3.1) This is a PalmOS bug.
 
  - The Palm pilot will let you sync (add) an appointment that repeats weekly,

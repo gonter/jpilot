@@ -500,7 +500,7 @@ void cb_prefs_gui(GtkWidget *widget, gpointer data)
 
    /************************************************************/
    /* Locale preference tab */
-   table = gtk_table_new(5, 2, FALSE);
+   table = gtk_table_new(6, 2, FALSE);
    gtk_table_set_row_spacings(GTK_TABLE(table),0);
    gtk_table_set_col_spacings(GTK_TABLE(table),5);
    gtk_box_pack_start(GTK_BOX(vbox_locale), table, FALSE, FALSE, 0);
@@ -555,6 +555,19 @@ void cb_prefs_gui(GtkWidget *widget, gpointer data)
                              1, 2, 3, 4);
 
    get_pref(PREF_TIME, &ivalue, NULL);
+   gtk_option_menu_set_history(GTK_OPTION_MENU(pref_menu), ivalue);
+
+   /* FDOW, fdow, first day of week */
+   label = gtk_label_new(_("First Day of Week"));
+   gtk_table_attach_defaults(GTK_TABLE(table), GTK_WIDGET(label),
+                             0, 1, 4, 5);
+   gtk_misc_set_alignment(GTK_MISC(label), 1.0, 0.5);
+
+   make_pref_menu(&pref_menu, PREF_FDOW);
+   gtk_table_attach_defaults(GTK_TABLE(table), GTK_WIDGET(pref_menu),
+                             1, 2, 4, 5);
+
+   get_pref(PREF_FDOW, &ivalue, NULL);
    gtk_option_menu_set_history(GTK_OPTION_MENU(pref_menu), ivalue);
 
    /**********************************************************************/

@@ -414,7 +414,7 @@ static int jp_pilot_connect(int *Psd, const char *device)
 
    ret = pi_bind(sd, device);
    if (ret < 0) {
-      jp_logf(JP_LOG_WARN, "pi_bind error: %s %s\n", device, strerror(errno));
+      jp_logf(JP_LOG_WARN, "pi_bind error: %s %s ret=[%d]\n", device, strerror(errno), ret);
       jp_logf(JP_LOG_WARN, _("Check your sync port and settings\n"));
       pi_close(sd);
       return SYNC_ERROR_BIND;
@@ -423,7 +423,7 @@ static int jp_pilot_connect(int *Psd, const char *device)
    ret = pi_listen(sd, 1);
    if (ret < 0) {
       perror("pi_listen");
-      jp_logf(JP_LOG_WARN, "pi_listen %s\n", strerror(errno));
+      jp_logf(JP_LOG_WARN, "pi_listen %s ret=[%d]\n", strerror(errno), ret);
       pi_close(sd);
       return SYNC_ERROR_LISTEN;
    }
@@ -431,7 +431,7 @@ static int jp_pilot_connect(int *Psd, const char *device)
    sd = pi_accept(sd, 0, 0);
    if(sd < 0) {
       perror("pi_accept");
-      jp_logf(JP_LOG_WARN, "pi_accept %s\n", strerror(errno));
+      jp_logf(JP_LOG_WARN, "pi_accept %s sd=[%d]\n", strerror(errno), sd);
       pi_close(sd);
       return SYNC_ERROR_PI_ACCEPT;
    }
@@ -3801,7 +3801,7 @@ findVFSRoot_clumsy(int sd, const char *root_component, long *match)
  *              to the volume.
  *
  *              Acceptable root components are /cardX/ for card indicators
- *              or /volumename/ for for identifying VFS volumes by their
+ *              or /volumename/ for identifying VFS volumes by their
  *              volume name. In the special case that there is only one
  *              VFS volume, no root component need be specified, and
  *              "/DCIM/" will map to "/card1/DCIM/".

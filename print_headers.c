@@ -841,7 +841,7 @@ void print_todo_header(FILE *f)
       "/IndentDone 30 def\n"
       "/IndentPriority IndentDone fontsize 1.5 mul add def\n"
       "/IndentDate     IndentDone fontsize 3   mul add def\n"
-      "/IndentText     IndentDone fontsize 9.5 mul add def\n"
+      "/IndentText     IndentDone fontsize 11.5 mul add def\n"
       "/fsize fontsize 1.2 mul def\n"
       "\n"
       "%-----------------------------------------\n"
