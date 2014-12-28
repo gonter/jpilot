@@ -1622,6 +1622,7 @@ int main(int argc, char *argv[])
          exit(0);
       }
       if ( (!strncasecmp(argv[i], "-h", 3)) ||
+          (!strcasecmp(argv[i], "--help")) ||
           (!strncasecmp(argv[i], "-?", 3)) ) {
          fprint_usage_string(stderr);
          exit(0);
@@ -1691,7 +1692,11 @@ int main(int argc, char *argv[])
          exit (1);
       }
    }
-   else if (!pid) {
+   else if (pid) {
+         fprintf (stderr, "%s\n", "J-Pilot already running.");
+         exit (1);
+   }
+   else {
       /* JPilot not running, install signal handler and write pid file */
       signal(SIGUSR1, sync_sig_handler);
       write_pid();

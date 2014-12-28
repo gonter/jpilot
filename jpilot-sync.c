@@ -148,6 +148,7 @@ int main(int argc, char *argv[])
          exit(0);
       }
       if ( (!strncmp(argv[i], "-h", 2)) || 
+           (!strcasecmp(argv[i], "--help")) ||
            (!strncasecmp(argv[1], "-?", 2))) {
          fprint_jps_usage_string(stderr);
          exit(0);
