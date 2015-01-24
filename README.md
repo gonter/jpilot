@@ -1,11 +1,11 @@
 ### What J-Pilot is
-J-Pilot is a PalmOS device desktop for Linux/Unix.  The latest version is 1.8.2 released on 2014-05-25
+J-Pilot is a PalmOS device desktop for Linux/Unix.  The latest version is 1.8.2
 ### J-Pilot plugins
 J-Pilot has a few plugins written for it.  They allow jpilot to have an interface and sync with Palm apps.  
 [Manana page](http://bill.sexton.tripod.com/download.htm)  
 [KeyRing page](http://gnukeyring.sourceforge.net)
 
-### Ubuntu dialout group
+### Ubuntu dialout user
 In ubuntu you must be a member of the dialout group in order to sync over USB.  Users will not be in this group by default.  If you are using serial ports see the README file.
 ```shell
 sudo usermod -a -G dialout $USER
