@@ -202,7 +202,7 @@ void append_anni_years(char *desc, int max, struct tm *date,
    }
    if ((appt) && (appt->repeatType != repeatYearly))
       return;
-   if ((cale) && (cale->repeatType != repeatYearly))
+   if ((cale) && (cale->repeatType != calendarRepeatYearly))
       return;
 
    /* Only display this if the user option is enabled */
@@ -1484,7 +1484,7 @@ int find_prev_next(struct CalendarEvent *cale,
 #endif
 
    /* Handle non-repeating appointments */        
-   if (cale->repeatType == repeatNone) {
+   if (cale->repeatType == calendarRepeatNone) {
 #ifdef ALARMS_DEBUG
       printf("fpn: repeatNone\n");
 #endif
@@ -2358,10 +2358,10 @@ int jp_copy_file(char *src, char *dest)
    }
 
    in = fopen(src, "r");
-   out = fopen(dest, "w");
    if (!in) {
       return EXIT_FAILURE;
    }
+   out = fopen(dest, "w");
    if (!out) {
       fclose(in);
       return EXIT_FAILURE;

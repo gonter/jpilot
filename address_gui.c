@@ -968,11 +968,11 @@ static void cb_addr_export_ok(GtkWidget *export_window, GtkWidget *clist,
    /* Write a header to the B-Folders CSV file */
    if (type == EXPORT_TYPE_BFOLDERS) {
       fprintf(out, "%s",
-	      "Contacts:\nName, Email, Phone (mobile), Company, Title, Website, Phone (work),"
-	      "Phone 2(work), Fax (work), Address (work), Phone (home), Address (home), "
-	      "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
-	      "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
-	      "\"Custom Label 5\",\"Custom Value 5\",Note,Folder");
+              "Contacts:\nName, Email, Phone (mobile), Company, Title, Website, Phone (work),"
+              "Phone 2(work), Fax (work), Address (work), Phone (home), Address (home), "
+              "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
+              "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
+              "\"Custom Label 5\",\"Custom Value 5\",Note,Folder");
    }  /* end writing CSV header */
 
    
@@ -1142,48 +1142,48 @@ static void cb_addr_export_ok(GtkWidget *export_window, GtkWidget *clist,
          break;
 
        case EXPORT_TYPE_BFOLDERS:
-	 /* fprintf(out, "%s",
-		 "Name, Email, Phone (mobile), Company, Title, Website, Phone (work),"
-		 "Phone 2(work), Fax (work), Address (work), Phone (home), Address (home), "
-		 "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
-		 "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
-		 "\"Custom Label 5\",\"Custom Value 5\",Note,Folder");
-	  */
+         /* fprintf(out, "%s",
+                 "Name, Email, Phone (mobile), Company, Title, Website, Phone (work),"
+                 "Phone 2(work), Fax (work), Address (work), Phone (home), Address (home), "
+                 "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
+                 "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
+                 "\"Custom Label 5\",\"Custom Value 5\",Note,Folder");
+          */
          address_i=phone_i=IM_i=0;
          for (i=0; i<schema_size; i++) {
             if (schema[i].record_field == contLastname) {
                str_to_csv_str(csv_text, mcont->cont.entry[schema[i].record_field] ?
                               mcont->cont.entry[schema[i].record_field] : "");
                fprintf(out, "\"%s, ", csv_text);
-	    }
-	 }
+            }
+         }
          for (i=0; i<schema_size; i++) {
             if (schema[i].record_field == contFirstname) {
                str_to_csv_str(csv_text, mcont->cont.entry[schema[i].record_field] ?
                               mcont->cont.entry[schema[i].record_field] : "");
                fprintf(out, "%s\",", csv_text);
-	    }
-	 }
-	 /* E-Mail */
-	 /*
+            }
+         }
+         /* E-Mail */
+         /*
          for (i=0; i<schema_size; i++) {
-	    if (!strcasecmp(contact_app_info.phoneLabels[cont->phoneLabel[phone_i]], _("E-mail"))) {
-	       gtk_object_set_data(GTK_OBJECT(dial_button[phone_i]), "mail", GINT_TO_POINTER(1));
-	       gtk_button_set_label(GTK_BUTTON(dial_button[phone_i]), _("Mail"));
-	    }
-	    fprintf(out, "%s\",", csv_text);
-	 }
+            if (!strcasecmp(contact_app_info.phoneLabels[cont->phoneLabel[phone_i]], _("E-mail"))) {
+               gtk_object_set_data(GTK_OBJECT(dial_button[phone_i]), "mail", GINT_TO_POINTER(1));
+               gtk_button_set_label(GTK_BUTTON(dial_button[phone_i]), _("Mail"));
+            }
+            fprintf(out, "%s\",", csv_text);
+         }
 */
-	 fprintf(out, "%s",
-		 "\"\", \"\", \"\", \"\", \"\","
-		 "\"\", \"\", \"\", \"\", \"\", "
-		 "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
-		 "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
-		 "\"Custom Label 5\",\"Custom Value 5\",\"Note\",\"Contacts\"");
-	 fprintf(out, "\n");
+         fprintf(out, "%s",
+                 "\"\", \"\", \"\", \"\", \"\","
+                 "\"\", \"\", \"\", \"\", \"\", "
+                 "\"Custom Label 1\", \"Custom Value 1\", \"Custom Label 2\", \"Custom Value 2\","
+                 "\"Custom Label 3\",\"Custom Value 3\",\"Custom Label 4\",\"Custom Value 4\","
+                 "\"Custom Label 5\",\"Custom Value 5\",\"Note\",\"Contacts\"");
+         fprintf(out, "\n");
 
-	 break;
-	 
+         break;
+
        case EXPORT_TYPE_VCARD:
        case EXPORT_TYPE_VCARD_GMAIL:
          /* RFC 2426: vCard MIME Directory Profile */
@@ -3530,6 +3530,7 @@ static int make_phone_menu(int default_set, unsigned int callback_id, int set)
    int i;
    GSList *group;
    GtkWidget *menu;
+   char *utf;
    long char_set;
 
    get_pref(PREF_CHAR_SET, &char_set, NULL);
@@ -3540,9 +3541,10 @@ static int make_phone_menu(int default_set, unsigned int callback_id, int set)
    group = NULL;
 
    for (i=0; i<NUM_PHONE_LABELS; i++) {
+      utf = charset_p2newj(contact_app_info.phoneLabels[i], 16, char_set);
       if (contact_app_info.phoneLabels[i][0]) {
          phone_type_menu_item[set][i] = gtk_radio_menu_item_new_with_label(
-                        group, contact_app_info.phoneLabels[i]);
+                        group, utf);
          gtk_signal_connect(GTK_OBJECT(phone_type_menu_item[set][i]), "activate",
                             GTK_SIGNAL_FUNC(cb_phone_menu),
                             GINT_TO_POINTER(callback_id<<8 | i));
@@ -3552,6 +3554,7 @@ static int make_phone_menu(int default_set, unsigned int callback_id, int set)
 
          changed_list = g_list_prepend(changed_list, phone_type_menu_item[set][i]);
       }
+      g_free(utf);
    }
    /* Set this one to active */
    if (GTK_IS_WIDGET(phone_type_menu_item[set][default_set])) {
