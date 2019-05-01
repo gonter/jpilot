@@ -46,8 +46,8 @@ stamp-h1
 po/*.po
 m4/*
 @*
-compile
 core
+compile
 gh-gg-jpilot.config
 gh-gg-jpilot.creator
 gh-gg-jpilot.creator.user
@@ -60,8 +60,4 @@ GSYMS
 GTAGS
 tags
 ts.*
-ts.autogen
-ts.debug
-ts.make
-ts.make-install
 typescript
